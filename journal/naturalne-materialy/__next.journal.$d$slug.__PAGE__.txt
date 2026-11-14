@@ -1,0 +1,32 @@
+1:"$Sreact.fragment"
+2:"/nordhaus-studio/_next/static/chunks/3qfy96eoyh-ek.js"
+3:"/nordhaus-studio/_next/static/chunks/0im84ni7cdape.js"
+4:I[51322,["$2","$3"],"default"]
+5:I[39756,["$2","$3"],"default"]
+6:I[37457,["$2","$3"],"default"]
+7:I[22016,["$2","$3"],""]
+10:I[97367,["$2","$3"],"OutletBoundary"]
+11:"$Sreact.suspense"
+14:"ViewportBoundary"
+15:I[97367,["$2","$3"],"$14"]
+16:"MetadataBoundary"
+17:I[97367,["$2","$3"],"$16"]
+18:I[27201,["$2","$3"],"IconMark"]
+:HL["/nordhaus-studio/_next/static/chunks/1c__jsg1h8a93.css","style"]
+9:X
+c:X
+c:C
+f:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","article",null,{"className":"section article","children":[["$","$L7",null,{"prefetch":false,"href":"/journal/","children":"← Dziennik"}],["$","p",null,{"className":"eyebrow","children":["Materiały"," / NORDHAUS NOTES"]}],["$","h1",null,{"children":"Mniej przedmiotów. Więcej jakości."}],["$","p",null,{"className":"lead-text","children":"O fakturach, które dobrze się starzeją, i wyborach na dłużej."}],[["$","p","Naturalne drewno zmienia kolor i fakturę. To część jego charakteru, ale wymaga regularnej pielęgnacji. Dobieraj wykończenie do miejsca użytkowania.",{"children":"Naturalne drewno zmienia kolor i fakturę. To część jego charakteru, ale wymaga regularnej pielęgnacji. Dobieraj wykończenie do miejsca użytkowania."}],["$","p","W naszej koncepcyjnej kolekcji łączymy proste formy z ciepłymi materiałami. Każdy produkt w tym portfolio jest przykładem demonstracyjnym, a nie ofertą sprzedaży.",{"children":"W naszej koncepcyjnej kolekcji łączymy proste formy z ciepłymi materiałami. Każdy produkt w tym portfolio jest przykładem demonstracyjnym, a nie ofertą sprzedaży."}]],["$","$L7",null,{"prefetch":false,"href":"/configure/","className":"button dark","children":"Sprawdź konfigurator 3D ↗"}]]}],null,["$","$L10",null,{"children":["$","$11",null,{"name":"Next.MetadataOutlet","children":"$@12"}]}]]}],"p":"$@13","v":null,"s":"$9"}}]]
+d:[["children",{"s":{"n":"slug","t":"d","k":"naturalne-materialy","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@e","v":"$c","s":"$9"},"c":"$Qf"}]]
+a:[["children",{"s":"journal","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@b","v":"$c","s":"$9"},"c":"$Qd"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/nordhaus-studio/_next/static/chunks/1c__jsg1h8a93.css","precedence":"next"}],["$","script","script-0",{"src":"/nordhaus-studio/_next/static/chunks/3qfy96eoyh-ek.js","async":true}],["$","script","script-1",{"src":"/nordhaus-studio/_next/static/chunks/0im84ni7cdape.js","async":true}]],["$","html",null,{"lang":"pl","children":["$","body",null,{"children":[["$","$L4",null,{"children":["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}],"notFound":[["$","section",null,{"className":"section empty","children":[["$","p",null,{"className":"eyebrow","children":"404 / NORDHAUS"}],["$","h1",null,{"children":["Tu jeszcze nic",["$","br",null,{}],["$","em",null,{"children":"nie zaprojektowano."}]]}],["$","$L7",null,{"prefetch":false,"href":"/","className":"button dark","children":"Wróć do domu ↗"}]]}],[]]}]}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Nordhaus Studio — fikcyjna marka\",\"description\":\"Projekt koncepcyjny do portfolio Andrii Tsap\"}"}}]]}]}]]}],"p":"$@8","v":null,"s":"$9"},"c":"$Qa"},"h":{"r":["$","$1","h",{"children":[null,["$","$L15",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L17",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$11",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Mniej przedmiotów. Więcej jakości. | Nordhaus Studio"}],["$","meta","1",{"name":"description","content":"O fakturach, które dobrze się starzeją, i wyborach na dłużej."}],["$","meta","2",{"name":"robots","content":"index, follow"}],["$","meta","3",{"property":"og:title","content":"Nordhaus Studio"}],["$","meta","4",{"property":"og:description","content":"Zaprojektuj swoją przestrzeń. Projekt koncepcyjny Andrii Tsap."}],["$","meta","5",{"property":"og:type","content":"website"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"Nordhaus Studio"}],["$","meta","8",{"name":"twitter:description","content":"Zaprojektuj swoją przestrzeń. Projekt koncepcyjny Andrii Tsap."}],["$","link","9",{"rel":"icon","href":"/nordhaus-studio/icon.svg?icon.1_tadylc868er.svg","sizes":"any","type":"image/svg+xml"}],["$","$L18","10",{}]]}]}],null]}],null]}],"p":"$@19","v":null,"s":"$9"}},"a":"$@1a","u":"$@1b","b":"EQXWl1efp8lCnQqfjyODP"}
+12:null
+9:300
+1b:true
+9:C
+1a:0
+e:"$undefined"
+b:"$undefined"
+8:"$undefined"
+19:"$undefined"
+13:"$undefined"

@@ -1,0 +1,34 @@
+1:"$Sreact.fragment"
+2:"/nordhaus-studio/_next/static/chunks/3qfy96eoyh-ek.js"
+3:"/nordhaus-studio/_next/static/chunks/0im84ni7cdape.js"
+4:I[51322,["$2","$3"],"default"]
+5:I[39756,["$2","$3"],"default"]
+6:I[37457,["$2","$3"],"default"]
+7:I[22016,["$2","$3"],""]
+10:"/nordhaus-studio/_next/static/chunks/2_kjv169_tr3o.js"
+11:I[16329,["$2","$3","$10"],"default"]
+12:I[97367,["$2","$3"],"OutletBoundary"]
+13:"$Sreact.suspense"
+16:"ViewportBoundary"
+17:I[97367,["$2","$3"],"$16"]
+18:"MetadataBoundary"
+19:I[97367,["$2","$3"],"$18"]
+1a:I[27201,["$2","$3"],"IconMark"]
+:HL["/nordhaus-studio/_next/static/chunks/1c__jsg1h8a93.css","style"]
+9:X
+c:X
+c:C
+f:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","$L11",null,{"product":{"id":"stol-form","name":"Stół Form","category":"Meble","price":389000,"image":"table","description":"Stół z litego dębu o spokojnej, architektonicznej sylwetce. Wykończenie olejowane.","colors":["Dąb naturalny","Dąb ciemny"],"sizes":["160 cm","200 cm"]}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Stół Form\",\"description\":\"Stół z litego dębu o spokojnej, architektonicznej sylwetce. Wykończenie olejowane.\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Nordhaus — marka koncepcyjna\"},\"sku\":\"stol-form\"}"}}]],[["$","script","script-0",{"src":"/nordhaus-studio/_next/static/chunks/2_kjv169_tr3o.js","async":true}]],["$","$L12",null,{"children":["$","$13",null,{"name":"Next.MetadataOutlet","children":"$@14"}]}]]}],"p":"$@15","v":null,"s":"$9"}}]]
+d:[["children",{"s":{"n":"id","t":"d","k":"stol-form","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@e","v":"$c","s":"$9"},"c":"$Qf"}]]
+a:[["children",{"s":"shop","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@b","v":"$c","s":"$9"},"c":"$Qd"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/nordhaus-studio/_next/static/chunks/1c__jsg1h8a93.css","precedence":"next"}],["$","script","script-0",{"src":"/nordhaus-studio/_next/static/chunks/3qfy96eoyh-ek.js","async":true}],["$","script","script-1",{"src":"/nordhaus-studio/_next/static/chunks/0im84ni7cdape.js","async":true}]],["$","html",null,{"lang":"pl","children":["$","body",null,{"children":[["$","$L4",null,{"children":["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}],"notFound":[["$","section",null,{"className":"section empty","children":[["$","p",null,{"className":"eyebrow","children":"404 / NORDHAUS"}],["$","h1",null,{"children":["Tu jeszcze nic",["$","br",null,{}],["$","em",null,{"children":"nie zaprojektowano."}]]}],["$","$L7",null,{"prefetch":false,"href":"/","className":"button dark","children":"Wróć do domu ↗"}]]}],[]]}]}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Nordhaus Studio — fikcyjna marka\",\"description\":\"Projekt koncepcyjny do portfolio Andrii Tsap\"}"}}]]}]}]]}],"p":"$@8","v":null,"s":"$9"},"c":"$Qa"},"h":{"r":["$","$1","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L19",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$13",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Stół Form | Nordhaus Studio"}],["$","meta","1",{"name":"description","content":"Stół z litego dębu o spokojnej, architektonicznej sylwetce. Wykończenie olejowane."}],["$","meta","2",{"name":"robots","content":"index, follow"}],["$","meta","3",{"property":"og:title","content":"Nordhaus Studio"}],["$","meta","4",{"property":"og:description","content":"Zaprojektuj swoją przestrzeń. Projekt koncepcyjny Andrii Tsap."}],["$","meta","5",{"property":"og:type","content":"website"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"Nordhaus Studio"}],["$","meta","8",{"name":"twitter:description","content":"Zaprojektuj swoją przestrzeń. Projekt koncepcyjny Andrii Tsap."}],["$","link","9",{"rel":"icon","href":"/nordhaus-studio/icon.svg?icon.1_tadylc868er.svg","sizes":"any","type":"image/svg+xml"}],["$","$L1a","10",{}]]}]}],null]}],null]}],"p":"$@1b","v":null,"s":"$9"}},"a":"$@1c","u":"$@1d","b":"EQXWl1efp8lCnQqfjyODP"}
+14:null
+9:300
+1d:true
+9:C
+1c:0
+e:"$undefined"
+b:"$undefined"
+8:"$undefined"
+1b:"$undefined"
+15:"$undefined"

@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /studio/
+Disallow: /cart/
+
+Sitemap: https://andriu-tsap.github.io/nordhaus-studio/sitemap.xml
