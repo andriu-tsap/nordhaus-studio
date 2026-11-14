@@ -1,0 +1,35 @@
+{
+  "name": "nordhaus-studio",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run build -w @nordhaus/domain && concurrently \"npm run dev -w @nordhaus/storefront\" \"npm run dev -w @nordhaus/studio\" \"npm run dev -w @nordhaus/api\"",
+    "build": "npm run build -w @nordhaus/domain && npm run build -w @nordhaus/storefront && npm run build -w @nordhaus/studio && npm run build -w @nordhaus/api",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "typecheck": "npm run build -w @nordhaus/domain && tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/storefront/tsconfig.json --noEmit",
+    "db:push": "npm run db:push -w @nordhaus/api",
+    "db:seed": "npm run db:seed -w @nordhaus/api",
+    "demo:build": "npm run build && node scripts/package-demo.mjs",
+    "cms:sync": "node scripts/sync-cms.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "typescript-eslint": "^8.46.0",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^22.18.0",
+    "concurrently": "^9.2.1",
+    "http-server": "^14.1.1",
+    "lighthouse": "^12.8.2"
+  }
+}

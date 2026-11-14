@@ -1,0 +1,38 @@
+# Optional deployment blueprint. Check current provider pricing before applying.
+services:
+  - type: web
+    name: nordhaus-api
+    runtime: docker
+    dockerfilePath: ./infra/Dockerfile.api
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SEED_ADMIN_PASSWORD
+        generateValue: true
+      - key: SEED_ADMIN_EMAIL
+        value: admin@example.com
+      - key: CORS_ORIGINS
+        value: https://andriu-tsap.github.io
+      - key: FRONTEND_URL
+        value: https://andriu-tsap.github.io/nordhaus-studio
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: INSIGHTS_URL
+        sync: false
+      - key: INSIGHTS_KEY
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: '587'
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false

@@ -1,0 +1,96 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nordhaus}
+      POSTGRES_DB: ${POSTGRES_DB:-nordhaus}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python scripts/init-env.py}
+    ports: ['127.0.0.1:5432:5432']
+    volumes: ['postgres-data:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  api:
+    build: { context: ., target: api }
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-nordhaus}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-nordhaus}?schema=public
+      SMTP_HOST: mailpit
+      INSIGHTS_URL: http://insights:8001
+    ports: ['127.0.0.1:4000:4000']
+    depends_on:
+      postgres: { condition: service_healthy }
+      insights: { condition: service_started }
+      mailpit: { condition: service_started }
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:4000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+        STUDIO_API_URL: ${STUDIO_API_URL:-}
+    ports: ['127.0.0.1:8088:80']
+  insights:
+    build: { context: ., dockerfile: services/insights/Dockerfile }
+    environment: { INSIGHTS_KEY: '${INSIGHTS_KEY:?Run python scripts/init-env.py}' }
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports: ['127.0.0.1:8025:8025']
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes: ['mysql-data:/var/lib/mysql']
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h localhost -p$${MYSQL_ROOT_PASSWORD}']
+      interval: 10s
+      timeout: 5s
+      retries: 30
+  wordpress:
+    image: wordpress:php8.3-apache
+    environment: &wp-env
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: wordpress
+    ports: ['127.0.0.1:8080:80']
+    volumes:
+      - wordpress-data:/var/www/html
+      - ./wordpress/nordhaus-studio:/var/www/html/wp-content/plugins/nordhaus-studio:ro
+    depends_on:
+      mysql: { condition: service_healthy }
+  wp-init:
+    image: wordpress:cli-php8.3
+    user: '33:33'
+    environment:
+      <<: *wp-env
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+    volumes:
+      - wordpress-data:/var/www/html
+      - ./wordpress/nordhaus-studio:/var/www/html/wp-content/plugins/nordhaus-studio:ro
+      - ./wordpress/init.sh:/init.sh:ro
+    depends_on:
+      wordpress: { condition: service_started }
+    entrypoint: ['sh', '/init.sh']
+volumes:
+  postgres-data:
+  mysql-data:
+  wordpress-data:

@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /workspace/work/nordhaus-studio
+
+ ✓ tests/domain.test.ts (23 tests) 29ms
+ ✓ tests/api.test.ts (7 tests) 878ms
+
+ Test Files  2 passed (2)
+      Tests  30 passed (30)
+   Start at  21:10:46
+   Duration  1.52s (transform 83ms, setup 0ms, collect 105ms, tests 907ms, environment 0ms, prepare 161ms)
+

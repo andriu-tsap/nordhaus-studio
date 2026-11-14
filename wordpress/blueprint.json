@@ -1,0 +1,43 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/wp-admin/",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    {
+      "step": "login"
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "mkdir",
+      "path": "/wordpress/wp-content/plugins/nordhaus-studio"
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/wp-content/plugins/nordhaus-studio/nordhaus-studio.php",
+      "data": "<?php\n/**\n * Plugin Name: Nordhaus Studio\n * Description: Headless CMS i dane demonstracyjne fikcyjnej marki. CPT, pola REST, WooCommerce.\n * Version: 1.0.0\n * Author: Andrii Tsap\n */\nif (!defined('ABSPATH')) { exit; }\nadd_action('init', function () {\n    foreach (['realizacje' => 'Przestrzenie', 'faq' => 'FAQ', 'zespol' => 'Zespół'] as $slug => $label) {\n        register_post_type('nh_' . $slug, ['label' => $label, 'public' => true, 'show_in_rest' => true, 'supports' => ['title', 'editor', 'thumbnail', 'custom-fields']]);\n        register_post_meta('nh_' . $slug, 'nh_subtitle', ['type' => 'string', 'single' => true, 'show_in_rest' => true, 'sanitize_callback' => 'sanitize_text_field', 'auth_callback' => function () { return current_user_can('edit_posts'); }]);\n    }\n});\nadd_action('rest_api_init', function () {\n    register_rest_route('nordhaus/v1', '/export', ['methods' => 'GET', 'permission_callback' => '__return_true', 'callback' => function () {\n        $products = [];\n        if (function_exists('wc_get_products')) {\n            foreach (wc_get_products(['limit' => 100, 'status' => 'publish', 'type' => ['simple', 'variable']]) as $p) {\n                $attrs = $p->get_attributes(); $colors = []; $sizes = [];\n                foreach ($attrs as $attr) {\n                    if ($attr->get_name() === 'Kolor') { $colors = $attr->get_options(); }\n                    if ($attr->get_name() === 'Rozmiar') { $sizes = $attr->get_options(); }\n                }\n                $products[] = ['id' => $p->get_slug(), 'name' => $p->get_name(), 'category' => $p->get_meta('nh_category') ?: 'Meble', 'price' => (int) round((float) $p->get_price() * 100), 'description' => wp_strip_all_tags($p->get_description()), 'image' => $p->get_meta('nh_image') ?: 'chair', 'colors' => $colors ?: ['Naturalny'], 'sizes' => $sizes ?: ['Standard']];\n            }\n        }\n        $articles = [];\n        foreach (get_posts(['post_type' => 'post', 'numberposts' => 100, 'post_status' => 'publish']) as $post) {\n            if (get_post_meta($post->ID, 'nh_demo', true) !== 'yes') { continue; }\n            $cats = wp_get_post_categories($post->ID, ['fields' => 'names']);\n            $articles[] = ['slug' => $post->post_name, 'title' => get_the_title($post), 'category' => $cats[0] ?? 'Inspiracje', 'excerpt' => wp_strip_all_tags($post->post_excerpt), 'paragraphs' => array_values(array_filter(array_map('wp_strip_all_tags', explode(\"\\n\\n\", $post->post_content))))];\n        }\n        return ['products' => $products, 'articles' => $articles];\n    }]);\n});\nfunction nh_seed_demo() {\n    if (!class_exists('WC_Product_Variable')) { return 'Najpierw aktywuj WooCommerce.'; }\n    $rows = [\n        ['fotel-ora','Fotel Ora','Meble',2490,'chair',['Piaskowy','Grafitowy'],['Standard']],\n        ['stol-form','Stół Form','Meble',3890,'table',['Dąb naturalny','Dąb ciemny'],['160 cm','200 cm']],\n        ['lampa-line','Lampa Line','Oświetlenie',890,'lamp',['Czarny','Kremowy'],['S','M']],\n        ['sofa-havn','Sofa Havn','Meble',6490,'sofa',['Piaskowy','Grafitowy'],['2 miejsca','3 miejsca']],\n        ['wazon-arc','Wazon Arc','Dodatki',290,'vase',['Kremowy','Terakota'],['S','L']],\n        ['stolik-noma','Stolik Noma','Meble',1290,'table',['Dąb naturalny'],['60 cm','80 cm']],\n    ];\n    foreach ($rows as [$slug,$name,$category,$price,$image,$colors,$sizes]) {\n        if (get_page_by_path($slug, OBJECT, 'product')) { continue; }\n        $p = new WC_Product_Variable(); $p->set_name($name); $p->set_slug($slug); $p->set_status('publish'); $p->set_description('Produkt demonstracyjny Nordhaus. Naturalne materiały i ponadczasowa forma. Fikcyjna marka — bez sprzedaży.');\n        $attrs = [];\n        foreach (['Kolor' => $colors, 'Rozmiar' => $sizes] as $label => $options) {\n            $a = new WC_Product_Attribute(); $a->set_name($label); $a->set_options($options); $a->set_visible(true); $a->set_variation(true); $attrs[] = $a;\n        }\n        $p->set_attributes($attrs); $p->update_meta_data('nh_category', $category); $p->update_meta_data('nh_image', $image); $id = $p->save();\n        foreach ($colors as $color) { foreach ($sizes as $size) {\n            $v = new WC_Product_Variation(); $v->set_parent_id($id); $v->set_attributes(['kolor' => $color, 'rozmiar' => $size]); $v->set_regular_price((string) $price); $v->set_status('publish'); $v->set_stock_status('instock'); $v->save();\n        }}\n        WC_Product_Variable::sync($id);\n    }\n    foreach (['nh_realizacje' => ['Spokojny dom','Ogród na co dzień'], 'nh_faq' => ['Jak działa demo?','Co obejmuje wycena?'], 'nh_zespol' => ['Julia — projektantka','Adam — doradca']] as $type => $titles) {\n        foreach ($titles as $title) { if (!get_posts(['post_type' => $type, 'title' => $title])) { wp_insert_post(['post_type' => $type, 'post_status' => 'publish', 'post_title' => $title, 'post_content' => 'Przykładowa treść koncepcyjna. Osoby i marka są fikcyjne.', 'meta_input' => ['nh_subtitle' => 'Koncepcja Nordhaus']]); } }\n    }\n    foreach ([['taras-przez-caly-rok','Taras, który przedłuża dom'], ['jak-wybrac-zadaszenie','Lamele, szkło czy poliwęglan?'], ['naturalne-materialy','Mniej przedmiotów. Więcej jakości.']] as [$slug,$title]) {\n        if (!get_page_by_path($slug, OBJECT, 'post')) {\n            wp_insert_post(['post_type'=>'post','post_status'=>'publish','post_name'=>$slug,'post_title'=>$title,'post_excerpt'=>'Poradnik koncepcyjnej marki Nordhaus Studio.','post_content'=>\"Zacznij od potrzeb swojej przestrzeni. Zwróć uwagę na światło, proporcje i trwałość materiałów.\\n\\nKażdy projekt wymaga indywidualnego pomiaru. Konfigurator pokazuje cenę orientacyjną, bez montażu i fundamentów.\",'meta_input'=>['nh_demo'=>'yes']]);\n        }\n    }\n    return 'Zaimportowano dane demonstracyjne.';\n}\nadd_action('admin_menu', function () { add_management_page('Nordhaus demo', 'Nordhaus demo', 'manage_options', 'nh-demo', function () {\n    echo '<div class=\"wrap\"><h1>Nordhaus Studio — fikcyjna marka</h1>';\n    if (isset($_POST['nh_seed'])) { check_admin_referer('nh_seed'); echo '<p>' . esc_html(nh_seed_demo()) . '</p>'; }\n    echo '<form method=\"post\">'; wp_nonce_field('nh_seed'); echo '<button class=\"button button-primary\" name=\"nh_seed\" value=\"1\">Wczytaj dane demo</button></form></div>';\n}); });\nif (defined('WP_CLI') && WP_CLI) { WP_CLI::add_command('nordhaus seed', function () { WP_CLI::success(nh_seed_demo()); }); }\n"
+    },
+    {
+      "step": "activatePlugin",
+      "pluginPath": "nordhaus-studio/nordhaus-studio.php"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once '/wordpress/wp-load.php'; echo nh_seed_demo();"
+    }
+  ]
+}

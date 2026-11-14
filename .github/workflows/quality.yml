@@ -1,0 +1,74 @@
+name: Quality and Pages
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['screenshots/**', 'reports/**', '**.md']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: nordhaus
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://postgres@localhost:5432/nordhaus?schema=public
+      NEXT_TELEMETRY_DISABLED: 1
+      SEED_ADMIN_EMAIL: admin@example.com
+      API_TEST_URL: http://127.0.0.1:4000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: npm ci
+      - name: Generate ephemeral test credentials
+        run: |
+          python - <<'PYCODE'
+          import os, secrets
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              for key in ['JWT_SECRET','SEED_ADMIN_PASSWORD']:
+                  f.write(f'{key}={secrets.token_hex(32)}\n')
+          PYCODE
+      - run: npx prisma generate --schema apps/api/prisma/schema.prisma
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run db:push && npm run db:seed
+      - name: Start API for integration tests
+        run: |
+          (cd apps/api && node dist/main.js > /tmp/nordhaus-api.log 2>&1 &)
+          node scripts/wait-http.mjs http://127.0.0.1:4000/health
+      - run: npm test
+      - run: pip install -r services/insights/requirements.txt && python -m pytest services/insights -q
+      - run: docker compose --env-file .env.example config --quiet
+        env:
+          POSTGRES_PASSWORD: ci-config-validation
+          INSIGHTS_KEY: ci-config-validation
+      - run: node scripts/package-demo.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Lighthouse mobile and desktop (all categories >= 90)
+        run: |
+          (npx http-server dist -p 4173 -g -c3600 > /tmp/nordhaus-static.log 2>&1 &)
+          node scripts/wait-http.mjs http://127.0.0.1:4173
+          node scripts/lighthouse.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-reports
+          path: |
+            screenshots/
+            reports/
+            playwright-report/
+            test-results/

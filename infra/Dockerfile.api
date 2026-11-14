@@ -1,0 +1,8 @@
+FROM node:24-alpine
+WORKDIR /app
+COPY . .
+RUN apk add --no-cache openssl ca-certificates && npm ci --workspace @nordhaus/api --workspace @nordhaus/domain --cache /tmp/npm-cache && npx prisma generate --schema apps/api/prisma/schema.prisma && npm run build -w @nordhaus/domain && npm run build -w @nordhaus/api && mkdir -p apps/api/assets && cp apps/storefront/public/fonts/DejaVuSans.ttf apps/api/assets/DejaVuSans.ttf && rm -rf /tmp/npm-cache && chmod -R a+rX /app
+WORKDIR /app/apps/api
+USER node
+EXPOSE 4000
+CMD ["sh","-c","npx prisma db push --skip-generate && npm run db:seed && node dist/main.js"]

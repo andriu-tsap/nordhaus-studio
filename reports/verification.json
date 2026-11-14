@@ -1,0 +1,30 @@
+{
+  "verified_at": "2026-11-14T20:35:07.295774+00:00",
+  "vitest": {
+    "passed": 30,
+    "failed": 0
+  },
+  "pytest": {
+    "passed": 2,
+    "failed": 0
+  },
+  "playwright": {
+    "passed": 14,
+    "failed": 0
+  },
+  "docker_api": "build and runtime verified",
+  "full_compose_runtime": "not executed",
+  "github_repository": "not created: integration lacks createRepository permission",
+  "lighthouse_mobile": {
+    "performance": 92,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "lighthouse_desktop": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  }
+}

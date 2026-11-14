@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Nord / 01 — architektura tarasu</title>
+    <meta
+      name="description"
+      content="Koncepcyjna pergola Nordhaus. Wybierz wymiary, dach i dodatki w konfiguratorze 3D."
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f4f2eb;
+        color: #263a32;
+        font: 18px/1.6 system-ui;
+      }
+      header,
+      section,
+      footer {
+        padding: 4vw 7vw;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+      }
+      a {
+        color: inherit;
+      }
+      h1 {
+        font: clamp(42px, 7vw, 100px)/1.1 Georgia;
+        margin: 30px 0;
+      }
+      h2 {
+        font: 40px Georgia;
+      }
+      p {
+        max-width: 650px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        min-height: 70vh;
+      }
+      .hero img {
+        width: 100%;
+        animation: rise 1s ease both;
+      }
+      .button {
+        display: inline-block;
+        background: #263a32;
+        color: #fff;
+        padding: 16px 24px;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      iframe {
+        width: 100%;
+        height: 1100px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+      }
+      .facts {
+        display: flex;
+        gap: 50px;
+        flex-wrap: wrap;
+      }
+      .facts span {
+        border-top: 1px solid;
+        padding-top: 20px;
+      }
+      footer {
+        background: #263a32;
+        color: #fff;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 700px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        iframe {
+          height: 1800px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>nordhaus / NORD 01</strong><a href="./">Wróć do studia ↗</a></header>
+    <main>
+      <section class="hero">
+        <div>
+          <p>ARCHITEKTURA CODZIENNOŚCI</p>
+          <h1>Otwórz dom<br />na ogród.</h1>
+          <p>
+            Wymiary, materiały i światło pod Twoją kontrolą. Poznaj pergolę Nord / 01 i stwórz
+            własną konfigurację.
+          </p>
+          <a class="button" href="#projekt">Zaprojektuj swoją ↗</a>
+        </div>
+        <img
+          src="images/pergola.svg"
+          alt="Koncepcyjna pergola grafitowa"
+          width="900"
+          height="650"
+        />
+      </section>
+      <section>
+        <div class="facts">
+          <span>3 rodzaje dachu</span><span>3–7 m szerokości</span><span>LED i roleta boczna</span
+          ><span>Wycena PDF</span>
+        </div>
+      </section>
+      <section id="projekt">
+        <h2>Przestrzeń dopasowana do Ciebie.</h2>
+        <p>Interaktywny konfigurator. Ceny orientacyjne brutto, bez montażu.</p>
+        <iframe title="Konfigurator Nordhaus 3D" src="configure/" loading="lazy"></iframe>
+      </section>
+    </main>
+    <footer>Projekt koncepcyjny do portfolio — fikcyjna marka. Andrii Tsap, 2026.</footer>
+  </body>
+</html>
